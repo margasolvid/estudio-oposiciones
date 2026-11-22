@@ -9,7 +9,8 @@ APPS = {'mis-examenes/index.html': DL / 'examenes_presentados/_banco/Mis_Examene
         'majo-y-marga/index.html': DL / 'examenes_presentados/_banco/Mis_Examenes_Combinada.html',
         'generalitat/index.html': DL / 'App_Generalitat/App_Generalitat.html',
         'generalitat/resumen.html': DL / 'App_Generalitat/Resumen_Generalitat.html',
-        'alcoy/index.html': DL / 'Alcoy3/Alcoy3.html'}
+        'alcoy/index.html': DL / 'Alcoy3/Alcoy3.html',
+        'ofimatica/index.html': DL / 'App_Ofimatica/App_Ofimatica.html'}
 HEAD = ('<!doctype html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n')
 for dest, src in APPS.items():
