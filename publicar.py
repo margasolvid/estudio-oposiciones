@@ -1,6 +1,6 @@
 """Copia las apps a esta carpeta (la web pública de GitHub Pages) con la cabecera HTML completa.
 Uso: python publicar.py  (después: git add -A && git commit && git push)"""
-import pathlib, shutil
+import pathlib, shutil, re
 R = pathlib.Path(__file__).resolve().parent
 DL = R.parent
 APPS = {'mis-examenes/index.html': DL / 'examenes_presentados/_banco/Mis_Examenes_Majo.html',
@@ -20,6 +20,11 @@ for dest, src in APPS.items():
     # enlaces entre las páginas de Majo, Marga y combinada (rutas de la web)
     t = (t.replace('"href": "Mis_Examenes_Majo.html"', '"href": "../majo/"').replace('"href": "Mis_Examenes_Marga.html"', '"href": "../marga/"')
           .replace('"href": "Mis_Examenes_Combinada.html"', '"href": "../majo-y-marga/"'))
+    # material privado de academias (copyright): NUNCA a la web pública
+    if '<!--PRIV-->' in t:
+        t = t[:t.index('<!--PRIV-->')] + t[t.rindex('<!--/PRIV-->') + len('<!--/PRIV-->'):]
+    if 'material_privado' in t or '<!--PRIV' in t:
+        raise SystemExit(f'ALTO: {dest} todavía contiene material privado; no se publica.')
     d = R / dest; d.parent.mkdir(parents=True, exist_ok=True)
     d.write_text(t, encoding='utf8')
     print(dest, len(t) // 1024, 'KB')
